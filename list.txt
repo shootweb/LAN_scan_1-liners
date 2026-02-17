@@ -1,0 +1,13 @@
+These are one-liners to do host discovery in a LAN with a "no go" IP list (no_go_ips.txt):
+
+
+nmap -sn -n -PE -PP --exclude-file no_go_ips.txt -oG - 192.168.1.0/24 | awk '/Up$/{print $2}'
+
+fping -a -q -r 1 -t 100 -g 192.168.1.0/24 2>/dev/null | grep -v -w -f no_go_ips.txt
+
+sudo arp-scan --localnet --quiet | awk '/^[0-9]+\./{print $1}' | grep -v -w -f no_go_ips.txt
+
+ip neigh | awk '/lladdr/{print $1}' | grep -v -w -f no_go_ips.txt
+
+ping -b -c 2 192.168.1.255 >/dev/null 2>&1 && ip neigh | awk '/lladdr/{print $1}' | grep -v -w -f no_go_ips.txt
+(meant to send ICMP Echo Request to the broadcast address 192.168.1.255)
