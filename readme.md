@@ -40,17 +40,17 @@ echo "192.168.1.1" >> no_go_ips.txt
 
 ## FAST
 ```
-nmap -sn -n -PE --min-rate 2000 --max-retries 0 --host-timeout 1s --exclude-file no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
+nmap -sn -n -PE --min-rate 2000 --max-retries 0 --host-timeout 1s --excludefile no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
 ```
 
 ## BALANCED
 ```
-nmap -sn -n -PE -PP --min-rate 1000 --max-retries 1 --host-timeout 2s --exclude-file no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
+nmap -sn -n -PE -PP --min-rate 1000 --max-retries 1 --host-timeout 2s --excludefile no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
 ```
 
 ## STEALTH
 ```
-nmap -sn -n -PE -PP --min-rate 100 --max-retries 2 --host-timeout 5s --exclude-file no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
+nmap -sn -n -PE -PP --min-rate 100 --max-retries 2 --host-timeout 5s --excludefile no_go_ips.txt -oG - 192.168.0.0/16 172.16.0.0/12 | awk '/Up$/{print $2}' | tee nmap_ips.txt
 ```
 
 ---
